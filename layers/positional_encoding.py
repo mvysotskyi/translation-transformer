@@ -3,14 +3,16 @@ Layers for Transformer.
 """
 
 import tensorflow as tf
-from tensorflow.keras import layers
+from tensorflow import keras
 
-class PositionalEncoding(layers.Layer):
+
+class PositionalEncoding(keras.layers.Layer):
     """
     Positional encoding layer.
     """
-    def __init__(self, d_model, max_seq_len=5000):
+    def __init__(self, d_model, max_seq_len):
         super(PositionalEncoding, self).__init__()
+
         self.d_model = d_model
         self.max_seq_len = max_seq_len
         self.pos_encoding = self.positional_encoding()
@@ -47,14 +49,4 @@ class PositionalEncoding(layers.Layer):
         return inputs + self.pos_encoding[:, :tf.shape(inputs)[1], :]
 
 if __name__ == "__main__":
-    # test the PositionalEncoding layer
-    sample_pos_encoding = PositionalEncoding(512, 2048)
-    print(sample_pos_encoding.pos_encoding.shape)
-
-    test_string = tf.random.uniform((1, 60, 512))
-
-    sample_pos_encoding = PositionalEncoding(512, 60)
-    a = sample_pos_encoding(test_string)
-
-    print(a.shape)
-    print(a[:, 0, :10])
+    ...

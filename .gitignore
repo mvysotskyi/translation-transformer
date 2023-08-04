@@ -26,6 +26,18 @@ share/python-wheels/
 *.egg
 MANIFEST
 
+# my stuff
+datasets/
+raw_data/
+ted_hrlr_translate_pt_en_converter/
+ted_hrlr_translate_pt_en_converter.zip
+__prepare_dataset.py
+*.h5
+.gitignore
+h5s/
+prepare_dataset.py
+translator.py
+
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.

@@ -31,7 +31,7 @@ datasets/
 raw_data/
 ted_hrlr_translate_pt_en_converter/
 ted_hrlr_translate_pt_en_converter.zip
-__prepare_dataset.py
+___prepare_dataset.py
 *.h5
 .gitignore
 h5s/

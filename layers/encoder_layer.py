@@ -35,7 +35,7 @@ class EncoderLayer(keras.layers.Layer):
         self.dropout_2 = keras.layers.Dropout(dropout_rate)
 
     def call(self, inputs: tf.Tensor, padding_mask: tf.Tensor | None = None, training: bool = True) -> tf.Tensor:
-        attention = self.multihead_attention(inputs, inputs, inputs, attention_mask=padding_mask)
+        attention = self.multihead_attention(inputs, inputs, inputs)
         attention = self.dropout_1(attention, training=training)
         attention = self.addnorm_1(inputs, attention, training=training)
 

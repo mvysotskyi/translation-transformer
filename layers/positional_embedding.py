@@ -25,11 +25,12 @@ class PositionEmbeddingFixedWeights(tf.keras.layers.Layer):
         super().__init__()
         self.d_model = d_model
         self.seq_len = seq_len
-        self.embedding = tf.keras.layers.Embedding(vocab_size, d_model)
+        self.embedding = tf.keras.layers.Embedding(vocab_size, d_model, mask_zero=True)
         self.pos_encoding = positional_encoding(length=seq_len, depth=d_model)
 
     def compute_mask(self, *args, **kwargs):
-        return None
+        return self.embedding.compute_mask(*args, **kwargs)
+        # return None
 
     def call(self, x):
         length = tf.shape(x)[1]
@@ -37,4 +38,5 @@ class PositionEmbeddingFixedWeights(tf.keras.layers.Layer):
         # This factor sets the relative scale of the embedding and positonal_encoding.
         x *= tf.math.sqrt(tf.cast(self.d_model, tf.float32))
         x = x + self.pos_encoding[tf.newaxis, :length, :]
+        # print("MAKS: ", x._keras_mask)
         return x

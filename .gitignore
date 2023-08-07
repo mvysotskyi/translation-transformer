@@ -27,15 +27,11 @@ share/python-wheels/
 MANIFEST
 
 # my stuff
-datasets/
+data/
 raw_data/
-ted_hrlr_translate_pt_en_converter/
-ted_hrlr_translate_pt_en_converter.zip
-___prepare_dataset.py
 *.h5
-.gitignore
-h5s/
-prepare_dataset.py
+test.py
+# prepare_dataset.py
 translator.py
 
 # PyInstaller

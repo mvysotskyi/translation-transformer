@@ -61,7 +61,7 @@ class DecoderLayer(keras.layers.Layer):
         attention = self.addnorm_1(inputs, attention)
 
         attention_2 = self.multihead_attention_2(
-            attention, encoder_outputs, encoder_outputs
+            attention, encoder_outputs, encoder_outputs, attention_mask=padding_mask
         )
         attention_2 = self.dropout_2(attention_2)
         attention_2 = self.addnorm_2(attention, attention_2, training=training)

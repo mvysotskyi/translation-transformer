@@ -13,16 +13,11 @@ from keras.losses import SparseCategoricalCrossentropy
 from transformer import Transformer
 from lr_scheduler import LearninRateScheduler
 
-
-def load_dataset(path: str) -> tf.data.Dataset:
-    """
-    Load tf dataset.
-    """
-    return tf.data.experimental.load(path)
+from prepare_dataset import BilingualDataset, Tokenizers
 
 
-train_path = "datasets/train"
-val_path = "datasets/test"
+train_path = "data/dataset_0"
+val_path = "data/dataset_1"
 
 
 def mask_loss_function(real: tf.Tensor, pred: tf.Tensor) -> tf.Tensor:
@@ -48,17 +43,19 @@ def masked_accuracy(label, pred):
 
 
 if __name__ == "__main__":
-    train_ds = load_dataset(train_path)
-    val_ds = load_dataset(val_path)
-
-    transformer = Transformer(7765, 7010, 128, 128, 8, 4, 512)
+    train_ds = BilingualDataset.load(train_path)
+    val_ds = BilingualDataset.load(val_path)
+    
+    train_ds = train_ds.skip(300)
+    
+    transformer = Transformer(7000, 7000, 128, 128, 6, 4, 512)
     transformer.build(input_shape=[(None, 128), (None, 128)])
 
     transformer.summary()
 
-    # optimizer = Adam(learning_rate=LearninRateScheduler(128, 4000), beta_1=0.9, beta_2=0.98, epsilon=1e-9)
+    optimizer = Adam(learning_rate=LearninRateScheduler(128, 4000), beta_1=0.9, beta_2=0.98, epsilon=1e-9)
 
-    # transformer.compile(optimizer=optimizer, loss=mask_loss_function, metrics=[masked_accuracy])
-    # transformer.fit(train_ds, validation_data=val_ds, epochs=5)
+    transformer.compile(optimizer=optimizer, loss=mask_loss_function, metrics=[masked_accuracy])
+    transformer.fit(train_ds, validation_data=val_ds, epochs=1)
 
-    # transformer.save_weights("transformer.h5")
+    transformer.save_weights("transformer.h5")

@@ -29,7 +29,7 @@ MANIFEST
 # my stuff
 data/dataset*
 raw_data/
-*.h5
+#*.h5
 test*
 # prepare_dataset.py
 

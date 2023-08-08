@@ -27,7 +27,7 @@ share/python-wheels/
 MANIFEST
 
 # my stuff
-data/
+data/dataset*
 raw_data/
 *.h5
 test*

@@ -1,10 +1,18 @@
 # translation-transformer
 Implementation of paper "Attention Is All You Need"
 
+
 ## Overview
 
 This repository contains my implementation of the ["Attention Is All You Need"](
 https://arxiv.org/abs/1706.03762) paper using TensorFlow and Keras. The paper introduced the revolutionary Transformer model, which utilizes self-attention mechanisms to achieve state-of-the-art performance in various natural language processing tasks. Our implementation focuses on building a Ukrainian-to-English translator using the Transformer architecture.
+
+
+### TODO
+- Train larger model and use more data
+- Try to share weights between Embedding layers
+- Try to use label smoothing
+
 
 ### Implementation Details
 

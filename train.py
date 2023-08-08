@@ -46,9 +46,7 @@ if __name__ == "__main__":
     train_ds = BilingualDataset.load(train_path)
     val_ds = BilingualDataset.load(val_path)
     
-    train_ds = train_ds.skip(300)
-    
-    transformer = Transformer(7000, 7000, 128, 128, 6, 4, 512)
+    transformer = Transformer(7000, 7000, 128, 128, 8, 4, 512)
     transformer.build(input_shape=[(None, 128), (None, 128)])
 
     transformer.summary()

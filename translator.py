@@ -52,24 +52,24 @@ if __name__ == "__main__":
 
     transformer = Transformer(7000, 7000, 128, 128, 8, 4, 512)
     transformer.build(input_shape=[(None, 128), (None, 128)])
-    transformer.load_weights("transformer.h5")
+    transformer.load_weights("checkpoints/transformer_20.h5")
 
     translator = Translator(transformer, tokenizers, {"src": "uk", "trg": "en"})
 
     # Sample sentcence in ukranian
-    sentence = "він надіслав резервні сили для охорони кордону ."
-    sentence = "як ти себе почуваєш ?"
-    sentence = "машинне навчання та добування даних часто використовують одні й ті ж методи ."
-    sentence = "я не в небезпеці , я і ця небезпека ."
-    sentence = "я той хто стукає ."
-    sentence = "він був відомий як великий вчений ."
-    sentence = "тому що я так сказав ."
-    sentence = "він вже ніколи не стане таким яким був раніше ."
-    sentence = "як ти знав , що це було тут ?"
-    ground_truth = "you know exactly who i am."
+    sample_senteces = [
+        "ти точно знаєш хто я такий",
+        "ми два найкращі повари в америці",
+        "він відчував себе дуже самотнім .",
+        "він був відомий як великий вчений в області математики.",
+        "машинне навчання та добування даних часто використовують одні й ті ж методи та техніки .",
+        "cьогодні національна мова набула статусу державної , вона вивчається , відроджується і вдосконалюється ."
+    ]
 
-    translated, _ = translator(sentence)
+    for sentence in sample_senteces:
+        # ground_truth = tokenizers.en.encode(sentence).ids
+        translated, _ = translator(sentence)
 
-    print(f"Input: {sentence}")
-    print(f"Ground truth: {ground_truth}")
-    print(f"Translated: {translated}")
+        print(f"Input: {sentence}")
+        # print(f"Ground truth: {ground_truth}")
+        print(f"Translated: {translated}")

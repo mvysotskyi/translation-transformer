@@ -6,7 +6,7 @@ import os
 
 import tensorflow as tf
 
-from tokenizers import ByteLevelBPETokenizer
+from tokenizers import Tokenizer, ByteLevelBPETokenizer
 from tokenizers.processors import TemplateProcessing
 
 
@@ -58,7 +58,7 @@ class Tokenizers:
 
         for lang in self._langs:
             self.__getattribute__(lang).save(
-                os.path.join(path, f"{lang}_tokenizer")
+                os.path.join(path, f"{lang}_tokenizer.json")
             )
 
     @classmethod
@@ -72,11 +72,14 @@ class Tokenizers:
         tokenizers = cls()
 
         for file in os.listdir(path):
+            if not file.endswith("_tokenizer.json"):
+                continue
+
             lang = file.split("_")[0]
-            tokenizer = ByteLevelBPETokenizer.from_file(
-                os.path.join(path, file), add_prefix_space=True
-            )
-            tokenizers.__setattr__(lang, tokenizer)
+            with open(os.path.join(path, file), "r", encoding="utf-8") as file:
+                tokenizer = Tokenizer.from_str(file.read())
+                tokenizers.__setattr__(lang, tokenizer)
+                tokenizers._langs.append(lang)
 
         return tokenizers
 

@@ -30,7 +30,7 @@ MANIFEST
 data/
 raw_data/
 *.h5
-test.py
+test*
 # prepare_dataset.py
 translator.py
 

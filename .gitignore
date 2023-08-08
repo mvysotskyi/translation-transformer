@@ -32,7 +32,6 @@ raw_data/
 *.h5
 test*
 # prepare_dataset.py
-translator.py
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

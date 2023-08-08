@@ -42,6 +42,14 @@ def masked_accuracy(label, pred):
     return tf.reduce_sum(match)/tf.reduce_sum(mask)
 
 
+class SaveEpochCallback(keras.callbacks.Callback):
+    def __init__(self, transformer):
+        self.transformer = transformer
+
+    def on_epoch_end(self, epoch, logs=None):
+        self.transformer.save_weights(f"transformer_{epoch}.h5")
+
+
 if __name__ == "__main__":
     train_ds = BilingualDataset.load(train_path)
     val_ds = BilingualDataset.load(val_path)
@@ -53,7 +61,7 @@ if __name__ == "__main__":
 
     optimizer = Adam(learning_rate=LearninRateScheduler(128, 4000), beta_1=0.9, beta_2=0.98, epsilon=1e-9)
 
-    transformer.compile(optimizer=optimizer, loss=mask_loss_function, metrics=[masked_accuracy])
+    transformer.compile(optimizer=optimizer, loss=mask_loss_function, metrics=[masked_accuracy], callbacks=[SaveEpochCallback(transformer)])
     transformer.fit(train_ds, validation_data=val_ds, epochs=1)
 
-    transformer.save_weights("transformer.h5")
+    # transformer.save_weights("transformer.h5")

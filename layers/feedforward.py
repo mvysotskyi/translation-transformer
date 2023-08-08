@@ -6,7 +6,10 @@ import tensorflow as tf
 
 
 class FeedForward(tf.keras.layers.Layer):
-    def __init__(self, d_model: int, dff: int, dropout_rate=0.1):
+    """
+    Feedforward layer for Transformer.
+    """
+    def __init__(self, d_model: int, dff: int, dropout_rate: float = 0.1):
         super().__init__()
         self.seq = tf.keras.Sequential(
             [
